@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace CodeAddict
 {
@@ -19,10 +20,33 @@ namespace CodeAddict
 
     public class Persist
     {
+
         public static int Persistence(long n)
         {
-            // add your magical code here.
-            return 0;
+            int rotationCount = 0;
+
+            if (n < 10)
+            {
+                return 0;
+            }
+
+            var digits = n.ToString().ToCharArray();
+
+            double product = 1;
+
+            for (int i = 0; i < digits.Length; i++)
+            {
+                product *= Char.GetNumericValue(digits[i]);
+            }
+
+            rotationCount++;
+
+            if (product >= 10)
+            {
+                rotationCount += Persistence((long)product);
+            }
+
+            return rotationCount;
         }
     }
 }
